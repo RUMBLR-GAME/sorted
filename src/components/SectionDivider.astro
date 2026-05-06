@@ -142,7 +142,7 @@ for (let i = 1; i < center.length; i++) {
   }
   .section-divider svg {
     width: 100%;
-    height: auto;
+    height: 200px;
     display: block;
   }
   .section-divider__text {
@@ -151,7 +151,12 @@ for (let i = 1; i < center.length; i++) {
     font-size: 36px;
     letter-spacing: -0.01em;
   }
-  @media (max-width: 720px) {
-    .section-divider__text { font-size: 24px; }
+  @media (max-width: 900px) {
+    .section-divider svg { height: 180px; }
+    .section-divider__text { font-size: 28px; }
+  }
+  @media (max-width: 600px) {
+    .section-divider svg { height: 160px; }
+    .section-divider__text { font-size: 22px; }
   }
 </style>

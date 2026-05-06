@@ -22,7 +22,7 @@ const description = 'The Australian peer-to-peer payments app. Top up free, send
         Send to any <strong>@handle</strong>, anywhere in Australia. <strong>Free. Instant. Done.</strong>
       </p>
       <div class="hero-actions">
-        <a href="#" class="btn btn-primary btn-lg">Claim your handle <svg class="icon"><use href="#i-arrow-right"/></svg></a>
+        <a data-claim href="#" class="btn btn-primary btn-lg">Claim your handle <svg class="icon"><use href="#i-arrow-right"/></svg></a>
         <a href="/how-it-works" class="btn btn-secondary btn-lg">How it works</a>
       </div>
       <div class="hero-trust">
@@ -120,8 +120,8 @@ const description = 'The Australian peer-to-peer payments app. Top up free, send
 <Marquee
   bgAbove="var(--paper)"
   bgBelow="var(--paper)"
-  ribbon="var(--ink)"
-  ink="var(--lime)"
+  ribbon="var(--butter)"
+  ink="var(--ink)"
   phrases={[
     'FREE FOREVER',
     'INSTANT',
@@ -299,37 +299,37 @@ const description = 'The Australian peer-to-peer payments app. Top up free, send
     <div class="trust-grid">
       <div class="trust-section-copy">
         <h2>Fair dinkum <span class="hl hl-sky">AUD.</span></h2>
-        <p>Every dollar in Sorted is backed 1:1 by AUDD — a fully-reserved Australian dollar token issued by Novatti, an AFSL-licensed financial services provider. Reserves sit in tier-1 banks at home.</p>
-        <p>The Solana settlement layer is just plumbing. You don't need to know what it is. It's why your sends land in seconds and cost you nothing.</p>
-        <p style="margin-top: 24px;"><a href="https://audd.digital" target="_blank" rel="noopener" class="audd-link">Read about AUDD →</a></p>
+        <p>Your balance is backed 1:1 by AUDD, the Australian dollar token issued by Novatti under an Australian Financial Services Licence. Reserves sit in <strong>tier-1 Aussie banks</strong>. Real dollars. Real banks. Real Australia.</p>
+        <p>Solana's just the rails — fast, cheap, invisible. It's what makes the under-two-second sends possible. You'll never see it.</p>
+        <p style="margin-top: 24px;"><a href="https://audd.digital" target="_blank" rel="noopener" class="audd-link">More about AUDD →</a></p>
       </div>
       <div class="trust-card">
         <div class="trust-row">
           <div class="trust-row-icon"><svg class="icon"><use href="#i-shield"/></svg></div>
           <div class="trust-row-body">
-            <div class="trust-row-title">AFSL-regulated issuer</div>
-            <div class="trust-row-desc">AUDD is issued by Novatti under an Australian Financial Services Licence. Audited regularly.</div>
+            <div class="trust-row-title">AFSL-regulated</div>
+            <div class="trust-row-desc">AUDD is issued by Novatti under an Australian Financial Services Licence.</div>
           </div>
         </div>
         <div class="trust-row">
           <div class="trust-row-icon"><svg class="icon"><use href="#i-lock"/></svg></div>
           <div class="trust-row-body">
-            <div class="trust-row-title">1:1 backed by AUD</div>
-            <div class="trust-row-desc">Every token is backed by an Australian dollar in a tier-1 Australian bank account. Redeemable 1:1, any time.</div>
+            <div class="trust-row-title">1:1 backed</div>
+            <div class="trust-row-desc">Every dollar is a real Australian dollar, redeemable any time.</div>
           </div>
         </div>
         <div class="trust-row">
           <div class="trust-row-icon"><svg class="icon"><use href="#i-globe"/></svg></div>
           <div class="trust-row-body">
-            <div class="trust-row-title">Reserves in Australia</div>
-            <div class="trust-row-desc">Not offshore. Not in another stablecoin. Reserves sit in regulated Aussie banks earning the RBA cash rate.</div>
+            <div class="trust-row-title">Reserves at home</div>
+            <div class="trust-row-desc">Tier-1 Aussie banks, not offshore. Earning the RBA cash rate.</div>
           </div>
         </div>
         <div class="trust-row">
           <div class="trust-row-icon"><svg class="icon"><use href="#i-zap"/></svg></div>
           <div class="trust-row-body">
-            <div class="trust-row-title">Settled on Solana</div>
-            <div class="trust-row-desc">Fast, cheap rails. Sub-second settlement, fractions of a cent in network cost. We absorb that — you don't pay it.</div>
+            <div class="trust-row-title">Solana rails</div>
+            <div class="trust-row-desc">Sub-second settlement, fractions of a cent in network cost. We cover it.</div>
           </div>
         </div>
       </div>
@@ -337,43 +337,47 @@ const description = 'The Australian peer-to-peer payments app. Top up free, send
   </div>
 </section>
 
-<SectionDivider bgAbove="var(--paper)" bgBelow="var(--paper-deep)" ribbon="var(--sky)" ink="var(--ink)" label="REAL QUESTIONS · HONEST ANSWERS" />
+<SectionDivider bgAbove="var(--paper)" bgBelow="var(--paper-deep)" ribbon="var(--sky)" ink="var(--ink)" label="GOT QUESTIONS · WE'VE GOT ANSWERS" />
 
 <!-- FAQ -->
 <section class="faq-section reveal" id="faq">
   <div class="container">
     <div class="section-head">
-      <h2 class="section-title">Fair <span class="hl hl-coral">questions.</span></h2>
-      <p class="section-sub">Real answers. No legalese.</p>
+      <h2 class="section-title">Got <span class="hl hl-coral">questions?</span></h2>
+      <p class="section-sub">No legalese. No fine print. Just the good oil.</p>
     </div>
     <div class="faq-list">
       <details class="faq-item">
-        <summary class="faq-q">Wait — is this crypto?<span class="faq-chevron"><svg><use href="#i-chevron-down"/></svg></span></summary>
-        <div class="faq-a">Technically the rails are crypto rails, yeah. But you'll never see a wallet address, a seed phrase, or a gas fee. You sign in with your phone number, type a handle, and money moves. The blockchain part is plumbing — same as how you don't think about TCP/IP when you send a text.</div>
+        <summary class="faq-q">How fast is "instant"?<span class="faq-chevron"><svg><use href="#i-chevron-down"/></svg></span></summary>
+        <div class="faq-a">Under two seconds, tap to balance. Not "next business day". Not "between 1–3 business days". Two seconds. Saturday night, Boxing Day, 3am on a Tuesday — same speed.</div>
       </details>
       <details class="faq-item">
-        <summary class="faq-q">How do you make money if everything's free?<span class="faq-chevron"><svg><use href="#i-chevron-down"/></svg></span></summary>
-        <div class="faq-a">Same way Wise and Revolut do. Reserves backing the AUDD in your account earn around 4% per year in tier-1 Aussie banks. We pay you 3.33% and keep the small spread (about 0.6%) to run the company. <strong>No transaction fees, no FX margin, no card fluff.</strong> If we ever can't sustain a fair yield, we'll say so plainly — won't dress it up.</div>
+        <summary class="faq-q">Do I need a wallet or anything crypto-y?<span class="faq-chevron"><svg><use href="#i-chevron-down"/></svg></span></summary>
+        <div class="faq-a">Nope. Sign in with your phone, pick a <strong>@handle</strong>, you're in. The Solana settlement layer is just plumbing — same way you don't think about TCP/IP when you send a text. We do the boring bits so you can just send money.</div>
       </details>
       <details class="faq-item">
-        <summary class="faq-q">Is the 3.33% guaranteed?<span class="faq-chevron"><svg><use href="#i-chevron-down"/></svg></span></summary>
-        <div class="faq-a">Nope, and we won't pretend it is. The rate moves with the RBA cash rate — if the RBA cuts, eventually our rate cuts. If they hike, we lift. We commit to passing through fairly and being upfront about it. Right now the maths works at 3.33% comfortably with the RBA at 4.10%.</div>
+        <summary class="faq-q">How does the free model actually work?<span class="faq-chevron"><svg><use href="#i-chevron-down"/></svg></span></summary>
+        <div class="faq-a">Same model Wise and Revolut use. Your AUD sits in tier-1 Aussie banks earning interest. We earn the spread between what those banks pay and what we pay you, and that runs the whole show. <strong>You never pay a cent in fees.</strong> Send. Receive. Top up. All free, forever.</div>
       </details>
       <details class="faq-item">
-        <summary class="faq-q">What happens if Sorted goes under?<span class="faq-chevron"><svg><use href="#i-chevron-down"/></svg></span></summary>
-        <div class="faq-a">Your balance isn't on Sorted's books — it's AUDD, issued by Novatti, backed 1:1 by AUD held in tier-1 Aussie bank accounts. If we vanished tomorrow, your AUDD is still redeemable through Novatti directly. We don't custody your money in the traditional sense; we're the front door, not the vault.</div>
+        <summary class="faq-q">Where's my money actually kept?<span class="faq-chevron"><svg><use href="#i-chevron-down"/></svg></span></summary>
+        <div class="faq-a">In <strong>tier-1 Australian bank accounts</strong>, backed 1:1 by AUDD — an Australian dollar token issued by Novatti under an Australian Financial Services Licence. Your balance is always redeemable for real AUD, any time. Not offshore. Not in stablecoins of stablecoins. Real Aussie dollars in real Aussie banks.</div>
       </details>
       <details class="faq-item">
-        <summary class="faq-q">Can I send money overseas?<span class="faq-chevron"><svg><use href="#i-chevron-down"/></svg></span></summary>
-        <div class="faq-a">Not yet. v1 is intentionally narrow — Australian P2P only. International sends and a debit card are on the roadmap, but we'd rather nail the simple thing first than ship a half-broken everything-app. Coming later this year.</div>
+        <summary class="faq-q">What about the 3.33% — is it real?<span class="faq-chevron"><svg><use href="#i-chevron-down"/></svg></span></summary>
+        <div class="faq-a">Real, paid daily at 9am, on every dollar in your balance. No tier, no minimum, no lock-up. The rate tracks the RBA cash rate — when the RBA moves, we move with it, fairly and openly. Right now the RBA's at 4.10%, which makes 3.33% comfortable.</div>
       </details>
       <details class="faq-item">
-        <summary class="faq-q">How does top-up actually work?<span class="faq-chevron"><svg><use href="#i-chevron-down"/></svg></span></summary>
-        <div class="faq-a">Through PayID/NPP — the same instant transfer rail your bank already uses. Link your bank once, send AUD to your Sorted PayID, and AUDD lands in your balance within seconds. No card surcharge, no "1% loading fee". And to cash out, just send back to your bank — same speed, same zero cost.</div>
+        <summary class="faq-q">Can I send overseas?<span class="faq-chevron"><svg><use href="#i-chevron-down"/></svg></span></summary>
+        <div class="faq-a">Not yet — but soon. We're nailing Aussie P2P first. International sends and a debit card are on the way later this year. Sign up to be first in line.</div>
       </details>
       <details class="faq-item">
-        <summary class="faq-q">Who's behind this?<span class="faq-chevron"><svg><use href="#i-chevron-down"/></svg></span></summary>
-        <div class="faq-a">Built in Brisbane by a small team that got tired of money taking three days to move between people who already know each other. We're operating as an authorised representative under an Australian financial services licensee, not flying solo on a "we'll figure out compliance later" ticket.</div>
+        <summary class="faq-q">How do I get money in and out?<span class="faq-chevron"><svg><use href="#i-chevron-down"/></svg></span></summary>
+        <div class="faq-a"><strong>PayID, instantly.</strong> Top up: send from your bank to your Sorted PayID, lands in seconds. Cash out: send back to your bank, same speed, same zero cost. No card surcharges, no "1% loading fee" hiding at the bottom of the screen.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">Who's making this?<span class="faq-chevron"><svg><use href="#i-chevron-down"/></svg></span></summary>
+        <div class="faq-a">A small Aussie team based in Brisbane, who got fed up with money taking three days to move between mates. We operate as an authorised representative under an Australian Financial Services Licence — proper compliance, not a "we'll sort it later" hack.</div>
       </details>
     </div>
   </div>

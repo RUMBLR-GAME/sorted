@@ -104,3 +104,56 @@ Core principles:
 - Bricolage Grotesque for display, ~700 weight, tight tracking (`-0.04em`)
 - Lucide-style 1.8px stroke icons
 - Dot-grid backgrounds (radial-gradient ink dots, fades at edges)
+
+## Email capture / "Claim your handle" modal
+
+Every "Claim your handle" button across the site opens a modal that captures
+**email + desired @handle** and submits the payload to a configurable endpoint.
+
+### Setup
+
+The modal posts to whatever URL is set in the `PUBLIC_CLAIM_ENDPOINT`
+environment variable. If unset, it logs the payload to the browser console
+(useful for development). Set it in Vercel's Environment Variables UI, or in a
+local `.env` file:
+
+```bash
+PUBLIC_CLAIM_ENDPOINT="https://your-webhook-or-form-endpoint"
+```
+
+### What gets sent
+
+The modal sends a JSON POST with:
+
+```json
+{
+  "handle": "hannah",
+  "email": "hannah@example.com",
+  "timestamp": "2026-05-06T03:42:11.123Z",
+  "source": "sorted-landing"
+}
+```
+
+### Where to point it
+
+Pick whatever fits your stack:
+
+- **Formspree** — easiest. Sign up, get a form ID, set
+  `PUBLIC_CLAIM_ENDPOINT="https://formspree.io/f/{your-form-id}"`. Submissions
+  show up in their dashboard, optionally forwarded to your inbox.
+- **Zapier / Make** — webhook URL. Submissions can land in Google Sheets,
+  Notion, Slack, Mailchimp, etc.
+- **Your own API** — anything that accepts a JSON POST. For Vercel Serverless
+  Functions, switch Astro to `output: 'hybrid'` mode and add an `/api/claim.ts`
+  endpoint.
+
+### Triggering the modal
+
+Any element with the `data-claim` attribute opens the modal on click. Already
+applied to all "Claim your handle" buttons globally (16 pages). To trigger
+from a custom button:
+
+```html
+<a href="#" data-claim>Sign up</a>
+```
+

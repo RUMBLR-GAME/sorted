@@ -4,6 +4,7 @@ import '@/styles/page.css';
 import IconSprite from '@/components/IconSprite.astro';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
+import ClaimHandleModal from '@/components/ClaimHandleModal.astro';
 
 interface Props {
   title: string;
@@ -46,6 +47,7 @@ const { title, description, active = null } = Astro.props;
   <slot />
 
   <Footer />
+  <ClaimHandleModal />
 
   <script>
     // ─── Nav scroll state ───
