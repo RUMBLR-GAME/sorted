@@ -113,8 +113,7 @@ for (let i = 1; i < center.length; i++) {
       stroke-linejoin="round"
     />
 
-    <!-- Text rides the centerline. dominant-baseline=central + tiny dy nudge to
-         visually center inside the ribbon (text appears too high without it). -->
+    <!-- Text rides the centerline, scrolling along the path for ambient motion -->
     <text
       class="section-divider__text"
       style={`fill: ${ink};`}
@@ -122,6 +121,13 @@ for (let i = 1; i < center.length; i++) {
     >
       <textPath href={`#${id}`} startOffset="0%">
         {repeated}
+        <animate
+          attributeName="startOffset"
+          from="0%"
+          to="-50%"
+          dur="45s"
+          repeatCount="indefinite"
+        />
       </textPath>
     </text>
   </svg>

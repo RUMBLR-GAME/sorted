@@ -538,38 +538,6 @@ footer .logo:hover { color: var(--lime); }
   50% { transform: scale(1.005); box-shadow: 0 12px 0 var(--ink); }
 }
 
-/* ──────── MARQUEE ──────── */
-.marquee-strip {
-  background: var(--ink);
-  color: var(--paper);
-  padding: 18px 0;
-  overflow: hidden;
-  position: relative;
-  border-top: 2px solid var(--ink);
-  border-bottom: 2px solid var(--ink);
-  transform: rotate(-1.2deg);
-  margin: 40px -2% 60px;
-  box-shadow: 0 6px 0 var(--lime);
-}
-.marquee-track {
-  display: flex;
-  gap: 48px;
-  width: max-content;
-  animation: scroll-left 40s linear infinite;
-}
-.marquee-item {
-  font-family: var(--font-display);
-  font-size: 26px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  display: flex;
-  align-items: center;
-  gap: 48px;
-  flex-shrink: 0;
-  white-space: nowrap;
-}
-/* marquee mark styles live in component */
-
 /* ──────── CTA STICKER POSITIONING ──────── */
 /* These need to be global because StickerMark component wraps them
    and Astro's CSS scoping wouldn't match across components. */

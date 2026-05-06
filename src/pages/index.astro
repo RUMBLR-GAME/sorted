@@ -4,6 +4,7 @@ import Marquee from '@/components/Marquee.astro';
 import PageCTA from '@/components/PageCTA.astro';
 import SectionDivider from '@/components/SectionDivider.astro';
 import StickerMark from '@/components/StickerMark.astro';
+import P2PAnimation from '@/components/P2PAnimation.astro';
 
 const title = 'Sorted — Money, sorted. Free. Instant. Earning 3.33%.';
 const description = 'The Australian peer-to-peer payments app. Top up free, send to any @handle in seconds, earn 3.33% p.a. on every dollar still. Built on AUDD, settled on Solana.';
@@ -18,24 +19,24 @@ const description = 'The Australian peer-to-peer payments app. Top up free, send
         Money,<br><span class="hl">sorted.</span>
       </h1>
       <p class="hero-sub">
-        Top up free. Send to any <strong>@handle</strong> in seconds. Earn <strong>3.33% p.a.</strong> on every dollar still.
+        Send to any <strong>@handle</strong>, anywhere in Australia. <strong>Free. Instant. Done.</strong>
       </p>
       <div class="hero-actions">
-        <a href="#" class="btn btn-primary btn-lg">Get the app <svg class="icon"><use href="#i-arrow-right"/></svg></a>
+        <a href="#" class="btn btn-primary btn-lg">Claim your handle <svg class="icon"><use href="#i-arrow-right"/></svg></a>
         <a href="/how-it-works" class="btn btn-secondary btn-lg">How it works</a>
       </div>
       <div class="hero-trust">
         <div class="trust-item">
           <div class="trust-num"><span data-count="0" data-prefix="$">$0</span></div>
-          <div class="trust-label">Top-ups, sends,<br>and receives. Free.</div>
+          <div class="trust-label">Send. Receive.<br>Top up. Forever.</div>
         </div>
         <div class="trust-item">
           <div class="trust-num"><span data-count="2" data-prefix="<" data-decimals="0">&lt;2</span><span class="unit">sec</span></div>
-          <div class="trust-label">From your tap to<br>their balance</div>
+          <div class="trust-label">From tap<br>to balance</div>
         </div>
         <div class="trust-item">
-          <div class="trust-num"><span data-count="3.33" data-decimals="2">3.33</span><span class="unit">%</span></div>
-          <div class="trust-label">p.a. on idle balance,<br>paid daily</div>
+          <div class="trust-num">24/7</div>
+          <div class="trust-label">Saturday night,<br>Christmas morning</div>
         </div>
       </div>
     </div>
@@ -116,60 +117,75 @@ const description = 'The Australian peer-to-peer payments app. Top up free, send
   </div>
 </section>
 
-<Marquee />
+<Marquee
+  bgAbove="var(--paper)"
+  bgBelow="var(--paper)"
+  ribbon="var(--ink)"
+  ink="var(--lime)"
+  phrases={[
+    'FREE FOREVER',
+    'INSTANT',
+    'NO BSB',
+    'NO FEES',
+    'NO DRAMA',
+    'BUILT IN AUSTRALIA',
+  ]}
+/>
 
 <!-- Why Sorted -->
 <section class="why-us reveal" id="why">
   <div class="container">
     <div class="section-head">
       <h2 class="section-title">Built for the everyday <span class="hl">P2P bit.</span></h2>
-      <p class="section-sub">Splitting dinner. Paying your mate back. Sending Mum a hundred for her birthday. None of it should cost you, take three days, or need a 16-digit card number.</p>
+      <p class="section-sub">Shouting Maccas. Paying your mate back. Sending Mum a hundred for her birthday. None of it should cost you a cent.</p>
     </div>
+
+    <P2PAnimation />
 
     <div class="usp-stack">
       <div class="usp-card featured">
-        <h3 class="usp-headline">Your idle balance earns <span class="stress">3.33% p.a.</span> Paid daily.</h3>
+        <h3 class="usp-headline">Free. Instant. <span class="stress">Done.</span></h3>
         <p class="usp-body">
-          Money sitting in your bank account earns you basically nothing. In Sorted, it earns 3.33% p.a. — paid out every morning. Same model the neobanks use. No tier, no minimum, no lock-up.
+          Type a handle, slide to send. Lands in their account before you've put your phone down. Saturday night, Boxing Day, 3am on a Tuesday — same speed, zero cost. No BSB. No "pending until tomorrow". No card surcharge buried at the bottom of the screen.
         </p>
         <div class="usp-vs">
           <div>
-            <span class="usp-vs-label">Average bank txn account</span>
-            <span class="usp-vs-val them">~0.0%</span>
+            <span class="usp-vs-label">Bank transfer</span>
+            <span class="usp-vs-val them">1–3 days</span>
           </div>
           <div>
-            <span class="usp-vs-label">Sorted balance</span>
-            <span class="usp-vs-val us">3.33% p.a.</span>
+            <span class="usp-vs-label">Sorted</span>
+            <span class="usp-vs-val us">&lt;2 seconds</span>
           </div>
           <div>
-            <span class="usp-vs-label">Bank "high interest" hoops</span>
-            <span class="usp-vs-val them">5+ rules</span>
+            <span class="usp-vs-label">PayPal fee</span>
+            <span class="usp-vs-val them">2.6% + 30¢</span>
           </div>
           <div>
-            <span class="usp-vs-label">Sorted hoops</span>
-            <span class="usp-vs-val us">Zero</span>
+            <span class="usp-vs-label">Sorted fee</span>
+            <span class="usp-vs-val us">$0</span>
           </div>
         </div>
       </div>
 
       <div class="usp-card">
-        <h3 class="usp-headline">Send to any @handle. <span class="stress">Under 2 seconds.</span></h3>
-        <p class="usp-body">No BSB. No account number. No "pending until tomorrow". Type a handle, slide to send. Lands before you've put your phone down. Even at 3am on a Sunday.</p>
-      </div>
-
-      <div class="usp-card">
-        <h3 class="usp-headline">No fees. <span class="stress">Anywhere.</span></h3>
-        <p class="usp-body">$0 to top up. $0 to send. $0 to receive. $0 to hold. We make money on the spread between bank deposit rates and what we pay you — same way Wise and Revolut do.</p>
+        <h3 class="usp-headline">No BSBs. <span class="stress">No drama.</span></h3>
+        <p class="usp-body">Every account has a <strong>@handle</strong>. Short, memorable, yours. No more texting Mum for her account number for the fifth time.</p>
       </div>
 
       <div class="usp-card">
         <h3 class="usp-headline">Crypto under the hood. <span class="stress">Not in your face.</span></h3>
-        <p class="usp-body">No wallets. No seed phrases. No "what's gas?". Sign in with your number, verify once, done. The Solana bit is our problem, not yours.</p>
+        <p class="usp-body">No wallets. No seed phrases. No "what's gas?". Sign in with your number, you're done. The Solana bit is our problem, not yours.</p>
       </div>
 
       <div class="usp-card">
         <h3 class="usp-headline">Real Aussie dollars. <span class="stress">Real Aussie banks.</span></h3>
-        <p class="usp-body">Every dollar in Sorted is backed 1:1 by AUDD — issued by Novatti under an Australian financial services licence, reserves in tier-1 banks at home. Not offshore. Not in stablecoins of stablecoins.</p>
+        <p class="usp-body">Every dollar's backed 1:1 by AUDD, issued by Novatti under an Australian Financial Services Licence. Reserves in tier-1 banks at home — not offshore.</p>
+      </div>
+
+      <div class="usp-card">
+        <h3 class="usp-headline">Oh, and your balance <span class="stress">earns 3.33%.</span></h3>
+        <p class="usp-body">Money sitting in Sorted earns yield, paid daily. No tier, no minimum, no lock-up. <a href="#earn" class="audd-link">More on that below →</a></p>
       </div>
     </div>
   </div>
@@ -256,9 +272,9 @@ const description = 'The Australian peer-to-peer payments app. Top up free, send
       <h2 class="big-quote">
         <span class="word w-lime">FAST.</span>
         <span class="word w-coral">FREE.</span>
-        <span class="word w-sky">EARNING.</span>
+        <span class="word w-sky">SORTED.</span>
       </h2>
-      <p class="section-sub" style="font-size: 20px;">We charge zero, settle in seconds, and pay you a fair rate on the money sitting still.</p>
+      <p class="section-sub" style="font-size: 20px;">No fees. No BSBs. No three-day waits. Just send.</p>
       <div class="statement-stats">
         <div class="ss-cell">
           <div class="ss-num"><span data-count="0" data-prefix="$">$0</span></div>
@@ -269,8 +285,8 @@ const description = 'The Australian peer-to-peer payments app. Top up free, send
           <div class="ss-label">Average tap-to-balance time</div>
         </div>
         <div class="ss-cell">
-          <div class="ss-num"><span data-count="3.33" data-decimals="2">3.33</span><span class="unit">%</span></div>
-          <div class="ss-label">Paid daily on every dollar still</div>
+          <div class="ss-num">24/7</div>
+          <div class="ss-label">Saturday night, Boxing Day, 3am</div>
         </div>
       </div>
     </div>
@@ -363,14 +379,29 @@ const description = 'The Australian peer-to-peer payments app. Top up free, send
   </div>
 </section>
 
+<Marquee
+  bgAbove="var(--paper-deep)"
+  bgBelow="var(--paper)"
+  ribbon="var(--lime)"
+  ink="var(--ink)"
+  phrases={[
+    "SEND THAT CASH MATE",
+    "DW BRO IT'S SORTED",
+    "EASY MONEY",
+    "SWEET AS",
+    "TOO EASY",
+    "ALL GOOD",
+  ]}
+/>
+
 <div class="cta-stage">
   <StickerMark color="var(--coral)" size="160px" rotate={-12} class="cta-sticker cta-sticker--left" />
   <StickerMark color="var(--lime)" size="180px" rotate={14} class="cta-sticker cta-sticker--right" />
   <PageCTA
-    title="Right then.<br>Let's get it sorted."
-    sub="Join the beta, claim your <strong>@handle</strong>, and start sending money the way it should've worked all along. Takes 90 seconds. No card needed."
-    primaryLabel="Get the app"
-    secondaryLabel="Read the deep dive"
+    title="Right then.<br>Claim your <span class='hl'>@handle.</span>"
+    sub="Takes 90 seconds. No card. No catch. Send your first $20 in the same minute you sign up."
+    primaryLabel="Claim your handle"
+    secondaryLabel="How it works"
     secondaryHref="/how-it-works"
   />
 </div>
@@ -1118,8 +1149,6 @@ const description = 'The Australian peer-to-peer payments app. Top up free, send
     padding: 140px 0;
     text-align: center;
     background: var(--paper-deep);
-    border-top: 2px solid var(--ink);
-    border-bottom: 2px solid var(--ink);
     position: relative;
   }
   .statement-block { max-width: 1000px; margin: 0 auto; }
@@ -1256,7 +1285,6 @@ const description = 'The Australian peer-to-peer payments app. Top up free, send
   .faq-section {
     padding: 120px 0;
     background: var(--paper-deep);
-    border-bottom: 2px solid var(--ink);
   }
   .faq-list {
     max-width: 820px;
