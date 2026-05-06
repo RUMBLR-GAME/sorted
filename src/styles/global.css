@@ -521,6 +521,41 @@ footer .logo:hover { color: var(--lime); }
   50% { transform: scale(1.005); box-shadow: 0 12px 0 var(--ink); }
 }
 
+/* ──────── WAVY RIBBON (unified for SectionDivider + Marquee) ──────── */
+/* All ribbons share identical geometry, height, and typography.
+   Only colours change. The aspect-ratio CSS keeps the SVG in sync
+   with the viewBox so the wave never gets cropped at any viewport width. */
+.ribbon {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  line-height: 0;
+}
+.ribbon svg {
+  width: 100%;
+  /* viewBox is 1400×220 → aspect 6.36:1. CSS aspect-ratio keeps the SVG
+     height = width / 6.36 at every viewport, so the wave NEVER clips. */
+  aspect-ratio: 1400 / 220;
+  height: auto;
+  display: block;
+  /* Hard cap so on ultra-wide screens the ribbon doesn't get gigantic */
+  max-height: 240px;
+}
+.ribbon__text {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 38px;
+  letter-spacing: 0.005em;
+}
+@media (max-width: 900px) {
+  .ribbon svg { max-height: 200px; }
+  .ribbon__text { font-size: 32px; }
+}
+@media (max-width: 600px) {
+  .ribbon svg { max-height: 170px; }
+  .ribbon__text { font-size: 26px; }
+}
+
 /* ──────── CTA STICKER POSITIONING ──────── */
 /* These need to be global because StickerMark component wraps them
    and Astro's CSS scoping wouldn't match across components. */

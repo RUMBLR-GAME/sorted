@@ -1,152 +1,46 @@
 ---
+import { buildRibbonPaths, VIEW_W, VIEW_H } from '@/lib/ribbon-geometry';
+
 interface Props {
-  /** Background colour matching the section ABOVE */
   bgAbove?: string;
-  /** Background colour matching the section BELOW */
   bgBelow?: string;
-  /** Fill colour of the ribbon */
   ribbon?: string;
-  /** Text + stroke colour */
   ink?: string;
-  /** Phrases to scroll along the ribbon */
   phrases?: string[];
-  /** Animation duration (lower = faster scroll) */
   duration?: number;
 }
 const {
   bgAbove = 'var(--paper)',
   bgBelow = 'var(--paper)',
-  ribbon = 'var(--ink)',
-  ink = 'var(--lime)',
-  phrases = [
-    'FREE FOREVER',
-    'INSTANT',
-    'NO BSB',
-    'NO FEES',
-    'NO DRAMA',
-    'BUILT IN AUSTRALIA',
-  ],
+  ribbon = 'var(--lime)',
+  ink = 'var(--ink)',
+  phrases = ['FREE FOREVER', 'INSTANT', 'NO BSB', 'NO FEES', 'NO DRAMA', 'BUILT IN AUSTRALIA'],
   duration = 30,
 } = Astro.props;
 
-// Repeat phrases plenty of times so text always covers the full path length
 const text = phrases.join(' · ');
 const repeated = (text + ' · ').repeat(8);
 const id = 'mq-' + Math.random().toString(36).slice(2, 9);
-
-// Wavy ribbon geometry (matches SectionDivider for visual consistency)
-const VIEW_W = 1400;
-const VIEW_H = 260;
-const MID = 130;
-const AMP = 38;
-const WAVELENGTH = 720;
-const HALF_THICK = 50;
-const N = 200;
-const PAD_X = 80;
-
-function pointAt(x: number) {
-  const k = (2 * Math.PI) / WAVELENGTH;
-  const y = MID + AMP * Math.sin(k * x);
-  const dy = AMP * k * Math.cos(k * x);
-  const len = Math.sqrt(1 + dy * dy);
-  return {
-    x, y,
-    nx: -dy / len,
-    ny: 1 / len,
-  };
-}
-
-const top: { x: number; y: number }[] = [];
-const bot: { x: number; y: number }[] = [];
-const center: { x: number; y: number }[] = [];
-for (let i = 0; i <= N; i++) {
-  const x = -PAD_X + (i / N) * (VIEW_W + 2 * PAD_X);
-  const p = pointAt(x);
-  top.push({ x: p.x - p.nx * HALF_THICK, y: p.y - p.ny * HALF_THICK });
-  bot.push({ x: p.x + p.nx * HALF_THICK, y: p.y + p.ny * HALF_THICK });
-  center.push({ x: p.x, y: p.y });
-}
-
-let aboveD = `M ${-PAD_X} 0 L ${VIEW_W + PAD_X} 0 L ${VIEW_W + PAD_X} ${top[top.length - 1].y.toFixed(2)}`;
-for (let i = top.length - 1; i >= 0; i--) {
-  aboveD += ` L ${top[i].x.toFixed(2)} ${top[i].y.toFixed(2)}`;
-}
-aboveD += ' Z';
-
-let belowD = `M ${bot[0].x.toFixed(2)} ${bot[0].y.toFixed(2)}`;
-for (let i = 1; i < bot.length; i++) {
-  belowD += ` L ${bot[i].x.toFixed(2)} ${bot[i].y.toFixed(2)}`;
-}
-belowD += ` L ${VIEW_W + PAD_X} ${VIEW_H} L ${-PAD_X} ${VIEW_H} Z`;
-
-let ribbonD = `M ${top[0].x.toFixed(2)} ${top[0].y.toFixed(2)}`;
-for (let i = 1; i < top.length; i++) {
-  ribbonD += ` L ${top[i].x.toFixed(2)} ${top[i].y.toFixed(2)}`;
-}
-for (let i = bot.length - 1; i >= 0; i--) {
-  ribbonD += ` L ${bot[i].x.toFixed(2)} ${bot[i].y.toFixed(2)}`;
-}
-ribbonD += ' Z';
-
-let centerD = `M ${center[0].x.toFixed(2)} ${center[0].y.toFixed(2)}`;
-for (let i = 1; i < center.length; i++) {
-  centerD += ` L ${center[i].x.toFixed(2)} ${center[i].y.toFixed(2)}`;
-}
+const paths = buildRibbonPaths();
 ---
 
-<div class="marquee-ribbon" style={`--mq-duration: ${duration}s;`}>
-  <svg viewBox={`0 0 ${VIEW_W} ${VIEW_H}`} preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+<div class="ribbon" style={`--mq-duration: ${duration}s;`}>
+  <svg
+    viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
+    preserveAspectRatio="xMidYMid slice"
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <defs>
-      <path id={id} d={centerD} fill="none" />
+      <path id={id} d={paths.center} fill="none" />
     </defs>
-
-    <!-- Backgrounds matching the page above and below -->
-    <path d={aboveD} fill={bgAbove} />
-    <path d={belowD} fill={bgBelow} />
-
-    <!-- Ribbon -->
-    <path d={ribbonD} fill={ribbon} stroke={ink} stroke-width="3" stroke-linejoin="round" />
-
-    <!-- Scrolling text — animate startOffset to make text glide along the path -->
-    <text class="marquee-ribbon__text" style={`fill: ${ink};`} dominant-baseline="central">
+    <path d={paths.above} fill={bgAbove} />
+    <path d={paths.below} fill={bgBelow} />
+    <path d={paths.ribbon} fill={ribbon} stroke={ink} stroke-width="3" stroke-linejoin="round" />
+    <text class="ribbon__text" style={`fill: ${ink};`} dominant-baseline="central">
       <textPath href={`#${id}`} startOffset="0%">
         {repeated}
-        <animate
-          attributeName="startOffset"
-          from="0%"
-          to="-50%"
-          dur={`${duration}s`}
-          repeatCount="indefinite"
-        />
+        <animate attributeName="startOffset" from="0%" to="-50%" dur={`${duration}s`} repeatCount="indefinite" />
       </textPath>
     </text>
   </svg>
 </div>
-
-<style>
-  .marquee-ribbon {
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-    line-height: 0;
-  }
-  .marquee-ribbon svg {
-    width: 100%;
-    height: 180px;
-    display: block;
-  }
-  .marquee-ribbon__text {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 32px;
-    letter-spacing: 0.01em;
-  }
-  @media (max-width: 900px) {
-    .marquee-ribbon svg { height: 150px; }
-    .marquee-ribbon__text { font-size: 24px; }
-  }
-  @media (max-width: 600px) {
-    .marquee-ribbon svg { height: 130px; }
-    .marquee-ribbon__text { font-size: 20px; }
-  }
-</style>
