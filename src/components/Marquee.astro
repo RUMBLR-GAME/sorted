@@ -1,0 +1,25 @@
+---
+interface Props {
+  phrases?: string[];
+}
+const { phrases = [
+  'FREE FOREVER',
+  'INSTANT SETTLEMENT',
+  '3.33% P.A. ON IDLE',
+  'NO FX, NO HIDDEN FEES',
+  'BUILT IN AUSTRALIA',
+] } = Astro.props;
+// Duplicate for seamless loop
+const all = [...phrases, ...phrases];
+---
+
+<div class="marquee-strip">
+  <div class="marquee-track">
+    {all.map((phrase) => (
+      <span class="marquee-item">
+        {phrase}
+        <span class="divider"><svg><use href="#sorted-mark"/></svg></span>
+      </span>
+    ))}
+  </div>
+</div>
