@@ -548,12 +548,18 @@ footer .logo:hover { color: var(--lime); }
   letter-spacing: 0.005em;
 }
 @media (max-width: 900px) {
-  .ribbon svg { max-height: 200px; }
-  .ribbon__text { font-size: 32px; }
+  .ribbon svg {
+    aspect-ratio: 1400 / 280;
+    max-height: 200px;
+  }
+  .ribbon__text { font-size: 30px; }
 }
 @media (max-width: 600px) {
-  .ribbon svg { max-height: 170px; }
-  .ribbon__text { font-size: 26px; }
+  .ribbon svg {
+    aspect-ratio: 1400 / 360;
+    max-height: 170px;
+  }
+  .ribbon__text { font-size: 22px; }
 }
 
 /* ──────── CTA STICKER POSITIONING ──────── */
@@ -589,7 +595,7 @@ footer .logo:hover { color: var(--lime); }
 }
 @media (max-width: 1024px) {
   .sticker-mark.cta-sticker--left,
-  .sticker-mark.cta-sticker--right { display: none; }
+  .sticker-mark.cta-sticker--right { display: none !important; }
 }
 
 /* ──────── RESPONSIVE ──────── */
@@ -597,6 +603,8 @@ footer .logo:hover { color: var(--lime); }
   .nav-links { display: none; }
   .nav-burger { display: flex; }
   .nav-cta .btn-ghost { display: none; }
+  /* Hide primary CTA whenever burger menu shows — avoids cluttered header */
+  .nav-cta .btn-primary { display: none; }
   .footer-grid { grid-template-columns: 1fr 1fr 1fr; }
   .footer-grid > div:first-child { grid-column: 1 / -1; }
 }
@@ -604,8 +612,6 @@ footer .logo:hover { color: var(--lime); }
   .footer-grid { grid-template-columns: repeat(2, 1fr); }
   .footer-grid > div:first-child { grid-column: 1 / -1; }
   .footer-bottom { flex-direction: column; align-items: flex-start; }
-  /* Hide primary CTA on narrow mobile — burger menu reveals it */
-  .nav-cta .btn-primary { display: none; }
 }
 @media (max-width: 460px) {
   .footer-grid { grid-template-columns: 1fr; }

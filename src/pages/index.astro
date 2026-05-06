@@ -19,7 +19,7 @@ const description = 'Send to any @handle, anywhere in Australia. Free. Instant. 
         Money,<br><span class="hl">sorted.</span>
       </h1>
       <p class="hero-sub">
-        Send to any <strong>@handle</strong>, anywhere in Australia. <strong>Free. Instant. Done.</strong>
+        Send to any <strong>@handle</strong>, anywhere in Australia.<br><strong>Free. Instant. Done.</strong>
       </p>
       <div class="hero-actions">
         <a data-claim href="#" class="btn btn-primary btn-lg">Claim your handle <svg class="icon"><use href="#i-arrow-right"/></svg></a>
@@ -143,34 +143,9 @@ const description = 'Send to any @handle, anywhere in Australia. Free. Instant. 
     <P2PAnimation />
 
     <div class="usp-stack">
-      <div class="usp-card featured">
-        <h3 class="usp-headline">Free. Instant. <span class="stress">Done.</span></h3>
-        <p class="usp-body">
-          Type a handle, slide to send. Lands in their account before you've put your phone down. Saturday night, Boxing Day, 3am on a Tuesday — same speed, zero cost. No BSB. No "pending until tomorrow". No card surcharge buried at the bottom of the screen.
-        </p>
-        <div class="usp-vs">
-          <div>
-            <span class="usp-vs-label">Bank transfer</span>
-            <span class="usp-vs-val them">1–3 days</span>
-          </div>
-          <div>
-            <span class="usp-vs-label">Sorted</span>
-            <span class="usp-vs-val us">&lt;2 seconds</span>
-          </div>
-          <div>
-            <span class="usp-vs-label">PayPal fee</span>
-            <span class="usp-vs-val them">2.6% + 30¢</span>
-          </div>
-          <div>
-            <span class="usp-vs-label">Sorted fee</span>
-            <span class="usp-vs-val us">$0</span>
-          </div>
-        </div>
-      </div>
-
       <div class="usp-card">
         <h3 class="usp-headline">No BSBs. <span class="stress">No drama.</span></h3>
-        <p class="usp-body">Every account has a <strong>@handle</strong>. Short, memorable, yours. No more texting Mum for her account number for the fifth time.</p>
+        <p class="usp-body">Every account has a <strong>@handle</strong>. Short, memorable, yours. No more texting Mum for her account number for the fifth time. Type a handle, slide to send — lands before you've put your phone down.</p>
       </div>
 
       <div class="usp-card">
@@ -475,7 +450,7 @@ const description = 'Send to any @handle, anywhere in Australia. Free. Instant. 
   }
   h1.hero-title {
     font-family: var(--font-display);
-    font-size: clamp(72px, 11vw, 168px);
+    font-size: clamp(56px, 13vw, 168px);
     line-height: 0.88;
     letter-spacing: -0.05em;
     font-weight: 700;
@@ -884,13 +859,13 @@ const description = 'Send to any @handle, anywhere in Australia. Free. Instant. 
     margin-top: 24px;
     padding-top: 20px;
     border-top: 2px dashed var(--line);
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     gap: 20px;
     font-size: 13px;
   }
   .usp-card.featured .usp-vs { border-color: rgba(246,242,233,0.18); }
-  .usp-vs > div { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+  .usp-vs > div { display: flex; flex-direction: column; gap: 4px; }
   .usp-vs-label {
     font-family: var(--font-mono);
     font-size: 11px;
@@ -1387,9 +1362,10 @@ const description = 'Send to any @handle, anywhere in Australia. Free. Instant. 
   }
   @media (max-width: 720px) {
     .hero { padding: 32px 0 40px; }
-    .hero-actions .btn { flex: 1; min-width: 140px; }
+    .hero-actions .btn { flex: 1; min-width: 0; }
     .usp-stack { grid-template-columns: 1fr; }
     .usp-card.featured { grid-column: span 1; }
+    .usp-vs { grid-template-columns: 1fr 1fr; gap: 14px 20px; }
     .how-grid { grid-template-columns: 1fr; }
     .statement-stats { grid-template-columns: 1fr; }
     .why-us, .how-section, .earn-section, .trust-section, .faq-section, .statement-section { padding: 60px 0; }
@@ -1398,5 +1374,22 @@ const description = 'Send to any @handle, anywhere in Australia. Free. Instant. 
     .float-card-2 { left: -10px; bottom: 60px; }
     .earn-card { padding: 32px 24px; }
     .trust-card { padding: 28px; }
+    .earn-card-rate { gap: 8px; }
+    .earn-card-rate-pa { padding-bottom: 12px; }
+  }
+  @media (max-width: 420px) {
+    /* Tighter buttons + stacked layout for small phones */
+    .hero-actions { flex-direction: column; align-items: stretch; }
+    .hero-actions .btn { width: 100%; }
+    .btn-lg { padding: 14px 20px; font-size: 15px; }
+    /* Smaller phone mockup */
+    .phone { width: 100%; max-width: 340px; }
+    /* Hero trust strip — 3 columns squished, switch to stacked rows */
+    .hero-trust { gap: 18px; }
+    .trust-num { font-size: 28px; }
+    /* Earn card rate scales down */
+    .earn-card-rate-num { font-size: 88px; }
+    /* USP cards: tighter padding */
+    .usp-card { padding: 24px; }
   }
 </style>
