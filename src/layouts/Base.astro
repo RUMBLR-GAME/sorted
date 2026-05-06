@@ -151,6 +151,37 @@ const { title, description, active = null } = Astro.props;
       }
       requestAnimationFrame(frame);
     }
+
+    // ─── Mouse parallax for brand curls flagged with .brand-curl--parallax ───
+    // Translates the whole curl wrapper a few px based on cursor position.
+    // Doesn't touch SVG rotation (drift animation owns that).
+    const parallaxEls = document.querySelectorAll<HTMLElement>('.brand-curl--parallax');
+    if (parallaxEls.length && window.matchMedia('(pointer: fine)').matches) {
+      let targetX = 0, targetY = 0;
+      let currX = 0, currY = 0;
+      let raf: number | null = null;
+      function tick() {
+        currX += (targetX - currX) * 0.06;
+        currY += (targetY - currY) * 0.06;
+        parallaxEls.forEach((el) => {
+          el.style.setProperty('--px', `${currX.toFixed(1)}px`);
+          el.style.setProperty('--py', `${currY.toFixed(1)}px`);
+        });
+        if (Math.abs(currX - targetX) > 0.05 || Math.abs(currY - targetY) > 0.05) {
+          raf = requestAnimationFrame(tick);
+        } else {
+          raf = null;
+        }
+      }
+      window.addEventListener('mousemove', (e) => {
+        const w = window.innerWidth;
+        const h = window.innerHeight;
+        // Max 14px shift each axis (subtle)
+        targetX = ((e.clientX / w) - 0.5) * 28;
+        targetY = ((e.clientY / h) - 0.5) * 28;
+        if (raf === null) raf = requestAnimationFrame(tick);
+      }, { passive: true });
+    }
   </script>
 </body>
 </html>

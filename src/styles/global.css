@@ -356,7 +356,7 @@ nav.site-nav.scrolled {
 }
 .section-head {
   max-width: 900px;
-  margin: 0 auto 60px;
+  margin: 0 auto 80px;
   text-align: center;
   position: relative;
 }
@@ -568,21 +568,42 @@ footer .logo:hover { color: var(--lime); }
   flex-shrink: 0;
   white-space: nowrap;
 }
-.marquee-item .divider {
-  width: 28px;
-  height: 28px;
-  flex-shrink: 0;
-  display: grid;
-  place-items: center;
-  background: var(--lime);
-  border-radius: 8px;
-  border: 1.5px solid var(--paper);
-  transform: rotate(-6deg);
+/* marquee mark styles live in component */
+
+/* ──────── CTA STICKER POSITIONING ──────── */
+/* These need to be global because StickerMark component wraps them
+   and Astro's CSS scoping wouldn't match across components. */
+.cta-stage {
+  position: relative;
 }
-.marquee-item .divider img,
-.marquee-item .divider svg {
-  width: 18px;
-  height: 18px;
+.sticker-mark.cta-sticker {
+  position: absolute;
+  z-index: 4;
+  pointer-events: none;
+}
+.sticker-mark.cta-sticker--left {
+  left: 4%;
+  bottom: 20%;
+  transform: rotate(-12deg) !important;
+  animation: sticker-bob-1 7s ease-in-out infinite;
+}
+.sticker-mark.cta-sticker--right {
+  right: 4%;
+  top: 12%;
+  transform: rotate(14deg) !important;
+  animation: sticker-bob-2 8s ease-in-out infinite;
+}
+@keyframes sticker-bob-1 {
+  0%, 100% { transform: rotate(-12deg) translateY(0); }
+  50%      { transform: rotate(-9deg) translateY(-10px); }
+}
+@keyframes sticker-bob-2 {
+  0%, 100% { transform: rotate(14deg) translateY(0); }
+  50%      { transform: rotate(11deg) translateY(-8px); }
+}
+@media (max-width: 1024px) {
+  .sticker-mark.cta-sticker--left,
+  .sticker-mark.cta-sticker--right { display: none; }
 }
 
 /* ──────── RESPONSIVE ──────── */

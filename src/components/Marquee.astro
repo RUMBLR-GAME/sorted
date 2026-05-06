@@ -3,13 +3,13 @@ interface Props {
   phrases?: string[];
 }
 const { phrases = [
+  'MONEY SORTED',
+  'INSTANT',
   'FREE FOREVER',
-  'INSTANT SETTLEMENT',
-  '3.33% P.A. ON IDLE',
-  'NO FX, NO HIDDEN FEES',
+  'EARNING 3.33% P.A.',
   'BUILT IN AUSTRALIA',
+  'AUDD-BACKED',
 ] } = Astro.props;
-// Duplicate for seamless loop
 const all = [...phrases, ...phrases];
 ---
 
@@ -17,9 +17,30 @@ const all = [...phrases, ...phrases];
   <div class="marquee-track">
     {all.map((phrase) => (
       <span class="marquee-item">
-        {phrase}
-        <span class="divider"><svg><use href="#sorted-mark"/></svg></span>
+        <span class="marquee-text">{phrase}</span>
+        <span class="marquee-mark"><svg><use href="#sorted-mark"/></svg></span>
       </span>
     ))}
   </div>
 </div>
+
+<style>
+  .marquee-mark {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    display: inline-grid;
+    place-items: center;
+    color: var(--lime);
+  }
+  .marquee-mark svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-10deg);
+    filter: drop-shadow(0 0 10px rgba(200, 241, 84, 0.3));
+  }
+  .marquee-text {
+    display: inline-flex;
+    align-items: center;
+  }
+</style>

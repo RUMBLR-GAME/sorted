@@ -1,0 +1,151 @@
+---
+interface Props {
+  /** Background colour matching the section ABOVE the divider */
+  bgAbove?: string;
+  /** Background colour matching the section BELOW the divider */
+  bgBelow?: string;
+  /** Fill colour of the ribbon itself */
+  ribbon?: string;
+  /** Stroke + text colour */
+  ink?: string;
+  /** Label to repeat along the ribbon */
+  label?: string;
+}
+const {
+  bgAbove = 'var(--paper)',
+  bgBelow = 'var(--paper)',
+  ribbon = 'var(--coral)',
+  ink = 'var(--ink)',
+  label = 'MONEY · SORTED',
+} = Astro.props;
+
+const repeated = (`${label} · `).repeat(10);
+const id = 'sd-' + Math.random().toString(36).slice(2, 9);
+
+// Geometry: parallel sine-wave paths form the ribbon.
+const VIEW_W = 1400;
+const VIEW_H = 320;
+const MID = 160;
+const AMP = 50;
+const WAVELENGTH = 720;
+const PHASE = 0;
+const HALF_THICK = 70;
+const N = 200;
+const PAD_X = 80;
+
+function pointAt(x: number) {
+  const k = (2 * Math.PI) / WAVELENGTH;
+  const y = MID + AMP * Math.sin(k * x + PHASE);
+  const dy = AMP * k * Math.cos(k * x + PHASE);
+  const len = Math.sqrt(1 + dy * dy);
+  const nx = -dy / len;
+  const ny = 1 / len;
+  return { x, y, nx, ny };
+}
+
+const top: { x: number; y: number }[] = [];
+const bot: { x: number; y: number }[] = [];
+const center: { x: number; y: number }[] = [];
+for (let i = 0; i <= N; i++) {
+  const x = -PAD_X + (i / N) * (VIEW_W + 2 * PAD_X);
+  const p = pointAt(x);
+  top.push({ x: p.x - p.nx * HALF_THICK, y: p.y - p.ny * HALF_THICK });
+  bot.push({ x: p.x + p.nx * HALF_THICK, y: p.y + p.ny * HALF_THICK });
+  center.push({ x: p.x, y: p.y });
+}
+
+// Region ABOVE the ribbon's top edge: closed path from top-left of viewBox,
+// across to top-right, then DOWN to top-right corner of ribbon, follow top edge
+// of ribbon back to the left.
+let aboveD = `M ${-PAD_X} 0 L ${VIEW_W + PAD_X} 0 L ${VIEW_W + PAD_X} ${top[top.length - 1].y.toFixed(2)}`;
+for (let i = top.length - 1; i >= 0; i--) {
+  aboveD += ` L ${top[i].x.toFixed(2)} ${top[i].y.toFixed(2)}`;
+}
+aboveD += ' Z';
+
+// Region BELOW the ribbon's bottom edge: from bottom-left, follow bottom edge
+// of ribbon to right, then DOWN to bottom-right corner of viewBox, across to bottom-left.
+let belowD = `M ${bot[0].x.toFixed(2)} ${bot[0].y.toFixed(2)}`;
+for (let i = 1; i < bot.length; i++) {
+  belowD += ` L ${bot[i].x.toFixed(2)} ${bot[i].y.toFixed(2)}`;
+}
+belowD += ` L ${VIEW_W + PAD_X} ${VIEW_H} L ${-PAD_X} ${VIEW_H} Z`;
+
+// Ribbon: closed wavy shape from top edge L→R then bottom edge R→L
+let ribbonD = `M ${top[0].x.toFixed(2)} ${top[0].y.toFixed(2)}`;
+for (let i = 1; i < top.length; i++) {
+  ribbonD += ` L ${top[i].x.toFixed(2)} ${top[i].y.toFixed(2)}`;
+}
+for (let i = bot.length - 1; i >= 0; i--) {
+  ribbonD += ` L ${bot[i].x.toFixed(2)} ${bot[i].y.toFixed(2)}`;
+}
+ribbonD += ' Z';
+
+// Centerline for text
+let centerD = `M ${center[0].x.toFixed(2)} ${center[0].y.toFixed(2)}`;
+for (let i = 1; i < center.length; i++) {
+  centerD += ` L ${center[i].x.toFixed(2)} ${center[i].y.toFixed(2)}`;
+}
+---
+
+<div class="section-divider">
+  <svg
+    viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
+    preserveAspectRatio="xMidYMid slice"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <defs>
+      <path id={id} d={centerD} fill="none" />
+    </defs>
+
+    <!-- Background region ABOVE the ribbon — matches section above -->
+    <path d={aboveD} fill={bgAbove} />
+
+    <!-- Background region BELOW the ribbon — matches section below -->
+    <path d={belowD} fill={bgBelow} />
+
+    <!-- Ribbon shape on top -->
+    <path
+      d={ribbonD}
+      fill={ribbon}
+      stroke={ink}
+      stroke-width="3"
+      stroke-linejoin="round"
+    />
+
+    <!-- Text rides the centerline. dominant-baseline=central + tiny dy nudge to
+         visually center inside the ribbon (text appears too high without it). -->
+    <text
+      class="section-divider__text"
+      style={`fill: ${ink};`}
+      dominant-baseline="central"
+    >
+      <textPath href={`#${id}`} startOffset="0%">
+        {repeated}
+      </textPath>
+    </text>
+  </svg>
+</div>
+
+<style>
+  .section-divider {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    line-height: 0;
+  }
+  .section-divider svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .section-divider__text {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 36px;
+    letter-spacing: -0.01em;
+  }
+  @media (max-width: 720px) {
+    .section-divider__text { font-size: 24px; }
+  }
+</style>
